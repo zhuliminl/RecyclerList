@@ -137,12 +137,32 @@ export default class RecylclerList extends Component {
     // 解决裁切问题。Android 默认会裁切，但是 ios 不裁切会超出当前设定的宽高度
     const { height = 0, width = 0 } = this.getRowDemensions(type, index)
     const { gap = 0, numColumns = 1 } = this.props
-    let isLeftSide = (index - 1 - preCrossCount) % numColumns === 0
 
-    // console.log('saul isLeftSide', isLeftSide, index)
+    let paddingLeft = gap / numColumns
+    let paddingRight = gap / numColumns
+
+    // 支持多行的同时，支持 gap 间距。需要分别找出 item 在 row 中的位置。最左边？最右边？中间？
+    const curIndex = index - preCrossCount
+    const isRowStart = curIndex % numColumns === 1
+    const isRowEnd = curIndex % numColumns === 0
+    const isRowMiddle = !isRowStart && !isRowEnd
+    if (isRowStart) {
+      paddingLeft = 0
+      paddingRight = gap / 2
+    }
+
+    if (isRowEnd) {
+      paddingLeft = gap / 2
+      paddingRight = 0
+    }
+    if (isRowMiddle) {
+      paddingLeft = gap / 2
+      paddingRight = gap / 2
+    }
 
     if (item.isCrossRow) {
-      isLeftSide = true
+      paddingLeft = 0
+      paddingRight = 0
     }
 
     return (
@@ -155,7 +175,8 @@ export default class RecylclerList extends Component {
       >
         <View style={{
           flex: 1,
-          paddingLeft: isLeftSide ? 0 : gap,
+          paddingLeft,
+          paddingRight,
           paddingTop: gap,
         }}>
           {renderItem({ type, item, index })}
@@ -175,16 +196,18 @@ export default class RecylclerList extends Component {
 
   renderDefaltView = (viewName) => {
     return (
-      <View style={styles.defaultViewContianer}><Text style={styles.defaultViewText}>{viewName || 'defaultView'}</Text></View>
+      <View style={styles.defaultViewContianer}>
+        <Text style={styles.defaultViewText}>{viewName || 'defaultView'}</Text>
+      </View>
     )
   }
 
   render() {
+    // 注意处理 header 的项
     const renderData = [{}, ...this.props.data]
-
     let dataProvider = new DataProvider((r1, r2) => {
       return r1 !== r2;
-    }).cloneWithRows(renderData) // 注意处理 header 的项
+    }).cloneWithRows(renderData)
 
     const { headerHeight = 0, itemHeight = 10, } = this.props
     let layoutProvider = this.createLayoutProvider({ headerHeight, itemHeight })
@@ -216,8 +239,8 @@ export default class RecylclerList extends Component {
         initialOffset={initialOffset}
         scrollViewProps={scrollViewProps}
         {...(initialRenderIndex && !!this.props.data.length ? { initialRenderIndex } : {})}
-        // forceNonDeterministicRendering={true}
-        // onItemLayout={onItemLayout}
+      // forceNonDeterministicRendering={true}
+      // onItemLayout={onItemLayout}
       />
     );
   }
@@ -239,5 +262,4 @@ const styles = StyleSheet.create({
   defaultViewText: {
     textAlign: 'center',
   },
-
 });

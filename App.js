@@ -20,7 +20,7 @@ export default class App extends Component {
   componentDidMount = () => {
     setTimeout(() => {
       this.setState({
-        data: this.state.data.concat(getRandomData(300)),
+        data: this.state.data.concat(getRandomData(30000)),
         // data: this.state.data.concat(getRandomData(20)),
         headerHeight: 300,
       })
@@ -31,11 +31,21 @@ export default class App extends Component {
 
   renderHeader = () => {
     return (
-      <View style={[styles.cell, {
+      <View style={[, {
         height: this.state.headerHeight,
-        backgroundColor: 'red'
+        backgroundColor: 'red',
+        flexDirection: 'row',
+        flex:1,
       }]}>
-        <Text style={styles.title}>HeaderComponent</Text>
+        <View style={{
+          flex: 1,
+          backgroundColor: 'blue'
+        }}></View>
+        <View style={{
+          flex: 1,
+          backgroundColor: 'red'
+        }}></View>
+        {/* <Text style={styles.title}>HeaderComponent</Text> */}
       </View>
     )
   }
@@ -104,7 +114,7 @@ export default class App extends Component {
     return (
       <View style={styles.container}>
         <RecyclerList
-          marginHorizontal={10}
+          marginHorizontal={15}
           numColumns={2}
           gap={10}
           renderHeader={this.renderHeader}
@@ -117,10 +127,10 @@ export default class App extends Component {
           data={this.state.data}
 
           onScroll={this.onScroll}
-          initialOffset={1000}
+          // initialOffset={1000}
           onRecreate={this.onRecreate}
           onVisibleIndicesChanged={this.onVisibleIndicesChanged}
-          initialRenderIndex={9}
+          // initialRenderIndex={9}
           scrollViewProps={{
             refreshControl: (
               <RefreshControl
