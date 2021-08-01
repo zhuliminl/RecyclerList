@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, ActivityIndicator, Text, Image } from 'react-native';
+import { View, StyleSheet, ActivityIndicator, Text, Image, RefreshControl } from 'react-native';
 import RecyclerList from './index';
 import { getRandomData } from './utils/help'
 
@@ -9,7 +9,7 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // data: [{ title: '我是1',  backgroundColor: 'blue' }, ...getRandomData(3)],
+      data: [{ title: '我是1', backgroundColor: 'blue' }, ...getRandomData(300)],
       // data: [{ title: '我是1',  backgroundColor: 'blue' }],
       data: [],
       headerHeight: 20,
@@ -18,14 +18,13 @@ export default class App extends Component {
   }
 
   componentDidMount = () => {
-    console.log('saul ########################')
     setTimeout(() => {
       this.setState({
-        data: this.state.data.concat(getRandomData(20000)),
+        data: this.state.data.concat(getRandomData(300)),
         // data: this.state.data.concat(getRandomData(20)),
         headerHeight: 300,
       })
-    }, 5000);
+    }, 2000);
 
   }
 
@@ -36,7 +35,7 @@ export default class App extends Component {
         height: this.state.headerHeight,
         backgroundColor: 'red'
       }]}>
-        <Text style={styles.title}>头部组件</Text>
+        <Text style={styles.title}>HeaderComponent</Text>
       </View>
     )
   }
@@ -75,7 +74,7 @@ export default class App extends Component {
   }
 
   onEndReached = () => {
-
+    console.log('saul ##onEndReached')
   }
 
   onRefresh = () => {
@@ -83,6 +82,22 @@ export default class App extends Component {
   }
 
   viewChangeHandler = viewType => {
+  }
+
+  onItemLayout = e => {
+    // console.log('saul itemlayout', e)
+  }
+
+  onScroll = e => {
+    // console.log('saul onScroll', e)
+  }
+
+  onRecreate = e => {
+
+  }
+
+  onVisibleIndicesChanged = index => {
+    console.log('saul onVisibleIndicesChanged', index)
   }
 
   render() {
@@ -100,6 +115,26 @@ export default class App extends Component {
           onEndReached={this.onEndReached}
           onRefresh={this.onRefresh}
           data={this.state.data}
+
+          onScroll={this.onScroll}
+          initialOffset={1000}
+          onRecreate={this.onRecreate}
+          onVisibleIndicesChanged={this.onVisibleIndicesChanged}
+          initialRenderIndex={9}
+          scrollViewProps={{
+            refreshControl: (
+              <RefreshControl
+                refreshing={this.state.loading}
+                onRefresh={async () => {
+                  this.setState({ loading: true });
+                  setTimeout(() => {
+                    this.setState({ loading: false });
+
+                  }, 3000);
+                }}
+              />
+            )
+          }}
         />
       </View>
     );
