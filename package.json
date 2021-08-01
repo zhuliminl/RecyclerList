@@ -1,0 +1,27 @@
+{
+  "name": "react-native-recyclerlist-v1",
+  "version": "1.0.0",
+  "description": "RecyclerList based on RecyclerListView, provide API with Flastlist like",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhuliminl/RecyclerList.git"
+  },
+  "keywords": [
+    "RecyclerList",
+    "react-native",
+    "Flatlist"
+  ],
+  "author": "saul",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhuliminl/RecyclerList/issues"
+  },
+  "homepage": "https://github.com/zhuliminl/RecyclerList#readme",
+  "dependencies": {
+    "recyclerlistview": "^3.0.5"
+  }
+}
