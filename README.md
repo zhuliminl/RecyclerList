@@ -61,12 +61,7 @@ simply to use as normal list
 suppprt mixed layout with maltiple columns
 
 
-https://user-images.githubusercontent.com/20069490/127765705-0df5eb5a-4466-4e71-a0f0-2193c42b73c5.mp4
-
 multiple columns support
-
-
-
 
 https://user-images.githubusercontent.com/20069490/127767154-269694e5-5aed-496f-b1f4-4496f50a71f8.mp4
 

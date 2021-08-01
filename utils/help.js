@@ -22,7 +22,7 @@ export const getRandomData = (size = 10) => {
       backgroundColor: randomColor(),
       title: generateRandomWords(20),
       imageUrl: getRandomImageUri(),
-      isCrossRow: crossIndexs.includes(i + 1) ? true : false,
+      // isCrossRow: crossIndexs.includes(i + 1) ? true : false,
     }
   })
   return data

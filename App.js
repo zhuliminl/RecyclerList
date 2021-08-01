@@ -37,15 +37,15 @@ export default class App extends Component {
         flexDirection: 'row',
         flex:1,
       }]}>
-        <View style={{
+        {/* <View style={{
           flex: 1,
           backgroundColor: 'blue'
         }}></View>
         <View style={{
           flex: 1,
           backgroundColor: 'red'
-        }}></View>
-        {/* <Text style={styles.title}>HeaderComponent</Text> */}
+        }}></View> */}
+        <Text style={styles.title}>HeaderComponent</Text>
       </View>
     )
   }
@@ -114,8 +114,8 @@ export default class App extends Component {
     return (
       <View style={styles.container}>
         <RecyclerList
-          marginHorizontal={15}
-          numColumns={2}
+          marginHorizontal={35}
+          numColumns={1}
           gap={10}
           renderHeader={this.renderHeader}
           renderFooter={this.renderFooter}
